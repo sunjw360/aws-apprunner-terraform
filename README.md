@@ -255,8 +255,31 @@ Build the infrastructure and pipeline using terraform:
 terraform apply
 ```
 
-Terraform will display an action plan. When asked whether you want to proceed with the actions, enter `yes`.
+Terraform will display an action plan. 
+When prompted supply the information for your email, a username, and yes for approving the actions.
 
+CodeCommit Email
+```bash
+var.codecommit_email
+  Codecommit email for git push orperation
+
+  Enter a value: <your email>
+```
+CodeCommit Username
+```bash
+var.codecommit_username
+  Codecommit user name for config and push orperation
+
+  Enter a value: <a username>
+```
+To perform these actions 'yes'
+```bash
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+```
 Wait for Terraform to complete the build before proceeding. It will take few minutes to complete “terraform apply” 
 
 ### Explore the stack you have built
