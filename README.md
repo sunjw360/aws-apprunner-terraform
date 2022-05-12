@@ -172,9 +172,13 @@ Run the following inside the Cloud9 terminal:
 ```bash
 docker run -it --rm -p 8080:80  --name petclinic petclinic
 ```
-![ApplicationLocal](images/docker-local-run.png)
 
-This will run the application using container port of 80 and will expose the application to host port of 8080. Click Preview from the top menu and then click “Preview Running Application.” It will open a browser displaying the Spring Petclinic application.
+This will run the application using container port of 80 and will expose the application to host port of 8080. 
+
+
+To view the application in a browser, Click Tools from the top menu and then click "Preview" then "Preview Running Application".  It will open a browser displaying the Spring Petclinic application.
+
+![ApplicationLocal](images/docker-local-run.png)
 
 ## Push Petclinic docker image to Amazon ECR
 On your Cloud9 IDE open a new terminal and run the following inside the new terminal:
@@ -211,12 +215,31 @@ aws ssm put-parameter --name /database/password  --value mysqlpassword --type Se
 ```
 
 ### Edit terraform variables
-
+Edit the `terraform.tfvars`. This contains variable definitions used by Terraform.  
 ```bash
 cd ~/environment/aws-apprunner-terraform/terraform
+sudo nano terraform.tfvars
 ```
 
-Edit `terraform.tfvars`, leave the `aws_profile` as `"default"`, and ensure `aws_region` matches your environment, and update `codebuild_cache_bucket_name` to replace the placeholder `yyyymmdd` with today's date, and the identifier `identifier` with something unique to you to create globally unique S3 bucket name. S3 bucket names can include numbers, lowercase letters and hyphens.
+1. Leave the `aws_profile` as `"default"`
+2. Ensure `aws_region` matches your environment
+3. Update `codebuild_cache_bucket_name` to create a globally unique S3 bucket name.
+    - Replace the placeholder `yyyymmdd` with today's date
+    - Replace the identifier `identifier` with something unique to you.  
+    - S3 bucket names can include numbers, lowercase letters and hyphens.
+
+```bash
+codebuild_cache_bucket_name="apprunner-cache-yyyymmdd-identifier"
+aws_region="us-east-1"
+stack="apprunner-workshop"
+aws_ecr="petclinic"
+aws_profile="default"
+source_repo_name="petclinic"
+source_repo_branch="master"
+image_repo_name="petclinic"
+ssm_parameter_store_name="/database/password"
+```
+
 
 ### Build
 
